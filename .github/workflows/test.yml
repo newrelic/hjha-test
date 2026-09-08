@@ -1,0 +1,62 @@
+# FOSSA CLI configuration file
+# Docs: https://github.com/fossas/fossa-cli/blob/master/docs/references/files/fossa-yml.md
+version: 3
+
+project:
+  # Unique identifier for this project in FOSSA. Defaults to the VCS remote
+  # (e.g. git remote) if omitted — set explicitly if you want a stable ID.
+  id: hjha-test
+
+  # Human-readable name shown in the FOSSA dashboard.
+  name: hjha-test
+
+  # Team/link/policy metadata (optional). Uncomment and fill in as needed.
+  # team: my-team
+  # policy: my-policy
+  # link: https://example.com
+  # url: https://github.com/my-org/hjha-test
+  # jiraProjectKey: PROJ
+
+  # Uncomment to mark this project as a released version and track releases.
+  # releaseGroup:
+  #   name: my-release-group
+  #   release: "1.0.0"
+
+# Controls how `fossa analyze` discovers and scans dependencies.
+targets:
+  # Scan everything found, using default discovery for all supported
+  # package managers/build tools. Remove this and use `only`/`exclude`
+  # below for finer-grained control.
+  only:
+    - type: all
+      path: .
+
+  # Exclude paths that shouldn't be scanned (build artifacts, vendored
+  # test fixtures, etc.).
+  exclude:
+    - type: all
+      path: node_modules
+    - type: all
+      path: vendor
+    - type: all
+      path: dist
+    - type: all
+      path: build
+
+# Paths to exclude from license/vendored-code scanning (`fossa analyze --unpack-archives`
+# and vendored dependency detection). Independent from `targets.exclude` above.
+paths:
+  exclude:
+    - "**/test/**"
+    - "**/tests/**"
+    - "**/*.md"
+
+# Vendored/first-party dependencies not managed by a package manager.
+# vendoredDependencies:
+#   - name: some-vendored-lib
+#     path: ./third_party/some-vendored-lib
+#     version: "1.0.0"
+
+# Custom/manually-declared dependencies not discoverable by CLI analysis.
+# customLicenseSearch: []
+# experimentalKeywordSearch: []
